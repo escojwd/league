@@ -1,0 +1,65 @@
+body {
+    background-image: url(/assets/stadium/wallpaper.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 575px;
+}
+
+.wrapper {
+    width: 800px;
+    margin: 50px auto 25px;
+}
+
+thead tr th {
+    background-color: slategray;
+    padding: 10px;
+    text-align: start;
+}
+
+tbody tr td {
+    padding: 10px;
+    border-bottom: 1px solid grey;
+}
+
+tbody tr:last-child td {
+    border: 0;
+}
+
+tbody tr td:first-child {
+    border: 0;
+}
+
+
+table {
+    width: 800px;
+    margin: 25px auto;
+}
+
+.gold {
+    background-color: gold;
+}
+
+.silver {
+    background-color: silver;
+}
+
+.bronze {
+    background-color: #cd7f32
+}
+                 
+td img {
+    width: 30px;
+}
+
+.team-select, .match-result {
+    margin: 25px;
+    text-align: center;
+}
+
+.final-block {
+    background-color: red;
+    font-weight: bolder;
+}
+
+
+
