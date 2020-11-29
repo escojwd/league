@@ -1,4 +1,10 @@
-function League(id, teams) {
+const tBody = document.querySelector('tbody');
+const selectClubs = document.querySelectorAll('select');
+const saveBtn = document.getElementById('save-result');
+const matchScore = document.querySelectorAll('input');
+
+
+function League(id) {
     this.id = id,
     this.teams = [],
     this.addTeams = function(t){ this.teams.push(t) },
@@ -15,9 +21,9 @@ function League(id, teams) {
 
 // let clubId = Math.floor(Math.random() * 100);
 
-function Team (name, id, games = 0, win = 0, draw = 0, loose = 0, goalScored = 0, goalConcedent = 0, goalDifference, points = 0) {
+function Team (name, games = 0, win = 0, draw = 0, loose = 0, goalScored = 0, goalConcedent = 0, goalDifference, points = 0) {
     this.name = name,
-    this.id = id,
+    this.id = this.name + "_" + Math.floor(Math.random() * 10000),
     this.games = games,
     this.win = win,
     this.draw = draw,
@@ -25,122 +31,112 @@ function Team (name, id, games = 0, win = 0, draw = 0, loose = 0, goalScored = 0
     this.goalScored = goalScored,
     this.goalConcedent = goalConcedent,
     this.goalDifference = this.goalScored - this.goalConcedent,
-    this.points = points
+    this.points = points,
+    this.form = [];
     // this.logo = logo
 }
 
-let teamOne = new Team(
-    name = "FC Bayern",
-    id = function clubId() {
-        return this.name + "_" + Math.floor(Math.random() * 10000);
-    },
-    games = 0,
-    win = 0,
-    draw = 0,
-    loose = 0,
-    goalScored = 10,
-    goalConcedent = 3,
-    goalDifference = this.goalScored - this.goalConcedent,
-    points = 110
-    // logo = function logo() {
-    //     let teamLogo = document.createElement('img');
-    //     teamLogo.setAttribute("src", "/assets/logos/ac-milan.png");
-    // }
-)
-
-let teamTwo = new Team(
-    name = "AC Milan",
-    id = function clubId() {
-        return this.name + "_" + Math.floor(Math.random() * 10000);
-    },
-    games = 0,
-    win = 0,
-    draw = 0,
-    loose = 0,
-    goalScored = 10,
-    goalConcedent = 8,
-    goalDifference = this.goalScored - this.goalConcedent,
-    points = 110
-    // logo = function logo() {
-    //     let teamLogo = document.createElement('img');
-    //     teamLogo.setAttribute("src", "/assets/logos/ac-milan.png");
-    // }
-)
-
-let teamThree = new Team(
-    name = "Real madrid",
-    id = function clubId() {
-        return this.name + "_" + Math.floor(Math.random() * 10000);
-    },
-    games = 0,
-    win = 0,
-    draw = 0,
-    loose = 0,
-    goalScored = 0,
-    goalConcedent = 0,
-    goalDifference = function difference(){ return this.goalScored - this.goalConcedent},
-    points = 11,
-    // logo = function logo() {
-    //     let teamLogo = document.createElement('img');
-    //     teamLogo.setAttribute("src", "/assets/logos/ac-milan.png");
-    // }
-)
-
-let teamFour = new Team(
-    name = "FC Barcelona",
-    id = function clubId() {
-        return this.name + "_" + Math.floor(Math.random() * 10000);
-    },
-    games = 0,
-    win = 0,
-    draw = 0,
-    loose = 0,
-    goalScored = 0,
-    goalConcedent = 0,
-    goalDifference = function difference(){ return this.goalScored - this.goalConcedent},
-    points = 11,
-    // logo = function logo() {
-    //     let teamLogo = document.createElement('img');
-    //     teamLogo.setAttribute("src", "/assets/logos/ac-milan.png");
-    // }
-)
-
 let leagueOne = new League(1, "superliga");
 
-leagueOne.addTeams(teamOne);
-leagueOne.addTeams(teamTwo);
-leagueOne.addTeams(teamThree);
-leagueOne.addTeams(teamFour);
-
+leagueOne.addTeams(new Team("FC Bayern"));
+leagueOne.addTeams(new Team("AC Milan"));
+leagueOne.addTeams(new Team("Real Madrid"));
+leagueOne.addTeams(new Team("FC Barcelona"));
 
 leagueOne.orderTeamsByRating();
 
-// let text = ["text1", "text2", "text3", "text4"];
-// text.forEach(function(el) {
-//     let div = document.createElement("div");
-//     div.className = "final-block";
-//     div.innerHTML = el;
-//     document.body.appendChild(div);
-// });
-
-
-// tr must be an array... wride code that is giving 
-// ( in thead tr's th is 8 pieces) 8 td to each tr
-
 function teamsTable() {
-    let allTeams = [];
-    for (let i = 0; i < leagueOne.teams.length; i++) {
-        let teamsQuantity = document.createElement("tr");
-        for (let k = 0; k < leagueOne.teams.AD; k++) {
-            // მონიშნე teams-ს ობიექტის ყველა property AD-ში
-            // every- გამოიყენე
-        }
-        allTeams.push(teamsQuantity);        
-    }
-    return allTeams;
+    tBody.innerHTML = "";
+    leagueOne.teams.forEach((team, index)  => {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.textContent = index + 1;
+        tr.appendChild(td);
+        
+        let teamsProp = ["name", "games", "win", "draw", "loose", "goalDifference", "points", "form"];
+        teamsProp.forEach(prop => {
+            const td = document.createElement('td');
+            if(prop == "goalDifference"){
+                td.textContent = team.goalScored + "/" + team.goalConcedent;
+            }else{
+                if(prop == "form") {
+                    td.textContent = team.form.join(" ");
+                } else {
+                    td.textContent = team[prop];
+                }
+            }
+            tr.appendChild(td);
+        });
+        tBody.appendChild(tr);
+    });
 }
 
 teamsTable();
 
-// console.log(leagueOne.teams);
-console.log(teamsTable());
+function generateOptions() {
+    selectClubs.forEach( select => {
+        leagueOne.teams.forEach( team => {
+            let option = document.createElement('option');
+            option.textContent = team.name;
+            option.value = team.id;
+            select.appendChild(option);
+        });
+    });
+}
+
+generateOptions();
+
+saveBtn.addEventListener('click', () => {
+    let firstOption = selectClubs[0];
+    let secondOption = selectClubs[1];
+    
+    let firstTeam = leagueOne.teams.find( team => firstOption.value == team.id);
+    let secondTeam = leagueOne.teams.find( team => secondOption.value == team.id);
+    
+    let firstScore = matchScore[0];
+    let secondScore = matchScore[1];
+    
+    if(firstScore.value == "" || secondScore.value == "" || firstOption.value == secondOption.value){
+        return;
+    }
+    
+    firstTeam.games++;
+    secondTeam.games++;
+
+    firstTeam.goalScored += +firstScore.value;
+    firstTeam.goalConcedent += +secondScore.value;
+
+    secondTeam.goalScored += +secondScore.value;
+    secondTeam.goalConcedent += +firstScore.value;
+
+
+
+    if(firstScore.value > secondScore.value){
+        firstTeam.points +=3;
+        firstTeam.win++;
+        secondTeam.loose++
+    }else{
+        if(firstScore.value === secondScore.value){
+            firstTeam.points +=1;
+            firstTeam.draw++;
+            secondTeam.points +=1;
+            secondTeam.draw++;
+        }else{
+            secondTeam.points +=3;
+            secondTeam.win++;
+            firstTeam.loose++;
+
+        }
+    }
+
+    
+    // console.log(firstTeam);
+    // console.log(secondTeam);
+    
+    
+leagueOne.orderTeamsByRating();
+teamsTable();
+})
+
+
+// console.log(matchScore);
