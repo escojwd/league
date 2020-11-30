@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E S L</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="reset.css">
+</head>
+<body>
+    <div class="wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Club</th>
+                    <th>Games</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>+ / -</th>
+                    <th>P</th>
+                    <th>F</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div id="team-select" class="team-select">
+        <select name="clubs" id="clubs-select-one"></select>
+        <select name="clubs" id="clubs-select-two"></select>
+    </div>
+    <div class="match-result">
+        <input type="number" name="first-team-goals"
+        min="0" max="10">
+        <input type="number" name="second-team-goals"
+        min="0" max="10">
+        <button id="save-result">Save result</button>
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+</html>
