@@ -4,6 +4,7 @@ const saveBtn = document.getElementById('save-result');
 const matchScore = document.querySelectorAll('input');
 
 
+
 function League(id) {
     this.id = id,
     this.teams = [],
@@ -38,12 +39,16 @@ function Team (name, games = 0, win = 0, draw = 0, loose = 0, goalScored = 0, go
 
 let leagueOne = new League(1, "superliga");
 
-leagueOne.addTeams(new Team("FC Bayern"));
-leagueOne.addTeams(new Team("AC Milan"));
-leagueOne.addTeams(new Team("Real Madrid"));
-leagueOne.addTeams(new Team("FC Barcelona"));
+leagueOne.teams = JSON.parse(localStorage.getItem("matches"));
 
-leagueOne.orderTeamsByRating();
+if(leagueOne.teams == null){
+    leagueOne.teams = [];
+    leagueOne.addTeams(new Team("FC Bayern"));
+    leagueOne.addTeams(new Team("AC Milan"));
+    leagueOne.addTeams(new Team("Real Madrid"));
+    leagueOne.addTeams(new Team("FC Barcelona"));
+}
+
 
 function teamsTable() {
     tBody.innerHTML = "";
@@ -134,9 +139,11 @@ saveBtn.addEventListener('click', () => {
     // console.log(secondTeam);
     
     
-leagueOne.orderTeamsByRating();
-teamsTable();
+    leagueOne.orderTeamsByRating();
+    teamsTable();
+    localStorage.setItem("matches", JSON.stringify(leagueOne.teams));
 })
+
 
 
 // console.log(matchScore);
