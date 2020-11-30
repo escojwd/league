@@ -1,5 +1,5 @@
 body {
-    background-image: url(/assets/stadium/wallpaper.jpg);
+    /* background-image: url(/assets/stadium/wallpaper.jpg); */
     background-size: cover;
     background-repeat: no-repeat;
     height: 575px;
@@ -61,5 +61,6 @@ td img {
     font-weight: bolder;
 }
 
-
-
+.team-select select {
+    width: 120px;
+}
