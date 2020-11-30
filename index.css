@@ -1,8 +1,9 @@
 body {
-    background: url(/assets/logos/ac-milan.png);
+    background: url(/assets/stadium/wallpaper.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     height: 575px;
+    color: white;
 }
 
 .wrapper {
